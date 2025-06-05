@@ -9,14 +9,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
-      - name: Build
-        run: npm ci && npm run build
+          node-version: 'lts/*'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
       - name: Setup Pages
+        id: setup
         uses: actions/configure-pages@v5
+      - name: Build
+        run: BASE_URL="${{steps.setup.outputs.base_url}}" npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
