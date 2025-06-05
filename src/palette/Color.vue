@@ -2,7 +2,7 @@
 const {base, step} =defineProps<{
   base: string;
   step: number;
-}>()
+}>();
 
 const color = `bg-${base}-${step}`;
 </script>
